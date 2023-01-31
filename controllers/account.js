@@ -29,13 +29,17 @@ export const addFunds = async (req, res) => {
   }
 };
 
-export const withdrawFunds = async (req, res) => {
+export const allAccounts = async (req, res) => {
   try {
     const all = await Account.find();
     res.status(200).json(all);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
+};
+
+export const withdrawFunds = (req, res) => {
+  res.send("You can transfer funds");
 };
 
 export const transferFunds = (req, res) => {

@@ -1,10 +1,13 @@
 import app from "./index.js";
 import connectDB from "./db/db.js";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 
 dotenv.config();
 
 const PORT = process.env.PORT;
+
+mongoose.set("strictQuery", true);
 
 connectDB(process.env.MONGO_URI)
   .then(() => {
