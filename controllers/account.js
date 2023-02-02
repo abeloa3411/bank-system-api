@@ -3,6 +3,7 @@ import Account from "../model/account.js";
 export const createAcc = async (req, res) => {
   try {
     const newAcc = new Account({
+      user: req.userId,
       accType: req.body,
     });
 
