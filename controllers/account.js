@@ -25,7 +25,7 @@ export const addFunds = async (req, res) => {
   try {
     const newAmnt = await Account.updateOne(
       { _id: id },
-      { $inc: { balance: balance } }
+      { $inc: { balance: parseFloat(balance) } }
     );
     res.status(200).json(newAmnt);
   } catch (error) {
@@ -42,7 +42,7 @@ export const withdrawFunds = async (req, res) => {
       {
         _id: id,
       },
-      { $inc: { balance: -balance } }
+      { $inc: { balance: parseFloat(-balance) } }
     );
 
     res.status(200).json(newAmnt);
@@ -51,8 +51,18 @@ export const withdrawFunds = async (req, res) => {
   }
 };
 
-export const transferFunds = (req, res) => {
-  res.send("You can transfer funds");
+//tranfer funds to another user's account
+export const transferFunds = async (req, res) => {
+  const { balance } = req.body;
+  const { id } = req.params;
+  try {
+    //get the user to recieve funds
+    const sender = Account.findById(id);
+
+    console.log(sender);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 //get all accounts that are in the database
