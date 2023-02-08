@@ -1,6 +1,6 @@
 import express from "express";
-import transaction from "./routes/transaction.js";
-import auth from "./routes/auth.js";
+import transaction from "./api/transactions/transactionRoute.js";
+import auth from "./api/auth/authRoute.js";
 
 const app = express();
 

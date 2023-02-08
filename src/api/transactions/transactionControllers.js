@@ -1,4 +1,4 @@
-import Account from "../model/account.js";
+import Account from "./transactionAccModel.js";
 
 //creating an account for all the transactions
 //you have to be logged in before creating

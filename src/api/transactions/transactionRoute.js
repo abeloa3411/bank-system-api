@@ -5,8 +5,8 @@ import {
   createAcc,
   transferFunds,
   withdrawFunds,
-} from "../controllers/account.js";
-import auth from "../middlewares/authMiddleware.js";
+} from "./transactionControllers.js";
+import auth from "../../middlewares/authMiddleware.js";
 
 const router = express.Router();
 

@@ -1,4 +1,4 @@
-import User from "../model/user.js";
+import User from "./authModel.js";
 import jwt from "jsonwebtoken";
 
 const createToken = (_id) => {
