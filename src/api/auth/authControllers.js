@@ -22,11 +22,11 @@ export const userLogin = async (req, res) => {
 };
 
 export const userSignup = async (req, res) => {
-  const { name, birth } = req.body;
+  const { name, birth, pin } = req.body;
 
   try {
     //sign up the user
-    const user = await User.signup(name, birth);
+    const user = await User.signup(name, birth, pin);
 
     //create the token
     const token = createToken(user._id);

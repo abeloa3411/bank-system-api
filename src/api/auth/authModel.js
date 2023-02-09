@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -9,28 +10,32 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  pin: {
+    type: String,
+    required: true,
+  },
 });
 
 //static signup method
 
-UserSchema.statics.signup = async function (name, birth) {
-  if (!name || !birth) {
+UserSchema.statics.signup = async function (name, birth, pin) {
+  if (!name || !birth || !pin) {
     throw Error("Please fill in all fields");
   }
 
-  //   if (!validator.isbirth(birth)) {
-  //     throw Error("birth not valid");
-  //   }
-
-  const exists = await this.findOne({ birth: birth });
+  const exists = await this.findOne({ name: name });
 
   if (exists) {
-    throw Error("birth already exists");
+    throw Error("user already exists");
   }
+
+  const salt = await bcrypt.genSalt(10);
+  const hash = await bcrypt.hash(pin, salt);
 
   const newUser = await this.create({
     name,
     birth,
+    pin: hash,
   });
 
   return newUser;
@@ -38,15 +43,20 @@ UserSchema.statics.signup = async function (name, birth) {
 
 //login method
 
-UserSchema.statics.login = async function (birth) {
-  if (!birth) {
+UserSchema.statics.login = async function (pin) {
+  if (!pin) {
     throw Error("Please fill in all fields");
   }
 
-  const exists = await this.findOne({ birth: birth });
+  const exists = await this.findOne({ pin: pin });
 
   if (!exists) {
-    throw Error("No user with this birth");
+    throw Error("Incorrect pin");
+  }
+
+  const match = await bcrypt.compare(password, exists.pin);
+  if (!match) {
+    throw Error("Incorect pin");
   }
 
   return exists;
