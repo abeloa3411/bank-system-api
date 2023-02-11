@@ -6,11 +6,11 @@ const createToken = (_id) => {
 };
 
 export const userLogin = async (req, res) => {
-  const { name } = req.body;
+  const { pin, name } = req.body;
 
   try {
     //login the user to the db
-    const user = await User.login(name);
+    const user = await User.login(name, pin);
 
     //create the token
     const token = createToken(user._id);

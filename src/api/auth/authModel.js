@@ -43,18 +43,18 @@ UserSchema.statics.signup = async function (name, birth, pin) {
 
 //login method
 
-UserSchema.statics.login = async function (pin) {
-  if (!pin) {
+UserSchema.statics.login = async function (name, pin) {
+  if (!pin || !name) {
     throw Error("Please fill in all fields");
   }
 
-  const exists = await this.findOne({ pin: pin });
+  const exists = await this.findOne({ name: name });
 
   if (!exists) {
     throw Error("Incorrect pin");
   }
 
-  const match = await bcrypt.compare(password, exists.pin);
+  const match = await bcrypt.compare(pin, exists.pin);
   if (!match) {
     throw Error("Incorect pin");
   }

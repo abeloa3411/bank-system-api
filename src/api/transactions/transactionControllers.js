@@ -63,22 +63,23 @@ export const withdrawFunds = async (req, res) => {
 
 //tranfer funds to another user's account
 export const transferFunds = async (req, res) => {
-  const { balance } = req.body;
-  const { id } = req.params;
-  const { funds } = req.query;
+  const { balance } = req.body; //amount to be send
+  const { id } = req.params; //account to send funds
+  const { funds } = req.query; //account to recieve funds
   try {
-    //get the user to send funds
+    //get the sender's account
     const sender = await Account.findById(id);
+
+    //check for insuficient balance
+
+    if (sender.balance === 0) {
+      throw Error("Insufficient balance");
+    }
 
     //deduct the balance
     const newBal = sender.balance - balance;
 
     //update the new balance
-
-    if (newBal === 0) {
-      throw Error("You insuficient balance");
-    }
-
     const updatedBal = await Account.updateOne(
       { _id: id },
       {
