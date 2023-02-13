@@ -7,7 +7,7 @@ export const createAcc = async (req, res) => {
     //create a new instance of account
     const newAcc = new Account({
       user: req.userId,
-      accType: req.body,
+      type: req.body,
     });
 
     //save the account instance to db
@@ -70,14 +70,14 @@ export const transferFunds = async (req, res) => {
     //get the sender's account
     const sender = await Account.findById(id);
 
-    //check for insuficient balance
-
-    if (sender.balance === 0) {
-      throw Error("Insufficient balance");
-    }
-
     //deduct the balance
     const newBal = sender.balance - balance;
+
+    //check for insuficient balance
+
+    if (newBal <= 0) {
+      throw Error("Insufficient balance");
+    }
 
     //update the new balance
     const updatedBal = await Account.updateOne(
@@ -86,10 +86,6 @@ export const transferFunds = async (req, res) => {
         balance: newBal,
       }
     );
-
-    //get the account to recieve the funds
-
-    const reciever = await Account.findById(funds);
 
     //update the reciever account balance
     const recieverNewBal = await Account.updateOne(
@@ -100,7 +96,11 @@ export const transferFunds = async (req, res) => {
     );
 
     //response
-    res.status(200).json({ recieverNewBal, updatedBal });
+    res.status(200).json({
+      recieverNewBal,
+      updatedBal,
+      response: `You have succesfully transfered $ ${balance}`,
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
