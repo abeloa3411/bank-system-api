@@ -97,11 +97,14 @@ fetch("api to be posted", {
 
 /* response
 {
-   "acknowledged": true,
-    "modifiedCount": 1,
-    "upsertedId": null,
-    "upsertedCount": 0,
-    "matchedCount": 1
+    "newAmnt": {
+        "acknowledged": true,
+        "modifiedCount": 1,
+        "upsertedId": null,
+        "upsertedCount": 0,
+        "matchedCount": 1
+    },
+    "response": "You have succesfully deposited $ 2000 in your account"
 }
 */
 ```
@@ -109,3 +112,26 @@ fetch("api to be posted", {
 if you get this response then, the funds have been succesfully deposited to your account
 
 ### Withdraw from your account
+
+```js
+fetch("api to be posted", {
+  method: "POST",
+  body: JSON.stringify({
+    balance: 2000,
+  }),
+})
+  .then((res) => res.json())
+  .then((json) => console.log(json));
+
+/* response
+{
+    "newAmnt": {
+        "acknowledged": true,
+        "modifiedCount": 1,
+        "upsertedId": null,
+        "upsertedCount": 0,
+        "matchedCount": 1
+    },
+    "response": "You have succesfully withdraw $ 2000 from your account"
+}
+```

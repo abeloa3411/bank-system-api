@@ -34,7 +34,10 @@ export const addFunds = async (req, res) => {
     );
 
     //response
-    res.status(200).json(newAmnt);
+    res.status(200).json({
+      newAmnt,
+      response: `You have succesfully deposited $ ${balance} in your account`,
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -55,7 +58,10 @@ export const withdrawFunds = async (req, res) => {
     );
 
     //respones
-    res.status(200).json(newAmnt);
+    res.status(200).json({
+      newAmnt,
+      response: `You have succefully withdraw $ ${balance} from you account`,
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

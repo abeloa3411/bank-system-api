@@ -11,4 +11,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/account", transaction);
 app.use("/api/auth", auth);
 
+app.get("/", (req, res) => {
+  res.json({
+    message: "🦄🌈✨👋🌎🌍🌏✨🌈🦄",
+  });
+});
+
 export default app;
