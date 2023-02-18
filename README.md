@@ -164,6 +164,7 @@ fetch("api to be posted", {
     },
     "response": "You have succesfully withdraw $ 2000 from your account"
 }
+*/
 ```
 
 ### Transfer funds
@@ -176,7 +177,6 @@ note: I think there are more efficient and simple way to do this but this is how
 also working to get a more efficient way to do it.
 
 ```js
-
 fetch("api to be posted", {
   method: "POST",
   body: JSON.stringify({
@@ -204,6 +204,7 @@ fetch("api to be posted", {
     },
     "response": "You have succesfully transfered $ 2000"
 }
+*/
 ```
 
 ### Get account balance
