@@ -10,9 +10,8 @@ const AccountSchema = new mongoose.Schema({
     type: Number,
     default: 100,
   },
-  type: {
-    type: String,
-    default: "savings",
+  accountType: {
+    type: { type: String },
   },
 });
 

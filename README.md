@@ -14,6 +14,7 @@ The bank system api is a REST API implemented with node js, express and mongodb.
 - AddFunds: api to be posted
 - Transfer funds: api to be posted
 - Withdraw funds: api to posted
+- Get all accounts in the bakn: api to be posted
 - Get account balance
 
 ### usage
@@ -83,6 +84,35 @@ fetch("api to be posted", {
 */
 ```
 
+### create an account
+
+After signing in to the bank you have to ceate an account for you to be able to make transactions.
+You need to have an authentication token(json web token) to be able to create your account, this helps
+in identifying who is creating the account.
+
+```js
+fetch("api to be posted", {
+  method: "POST",
+  body: JSON.stringify({
+    accountType: "savings",
+  }),
+})
+  .then((res) => res.json())
+  .then((json) => console.log(json));
+
+/* response
+{
+    "isSaved": {
+        "user": "63e3fc240a03ad3a11d90258",
+        "balance": 100,
+        "_id": "63f0f010175b47012ba784ac",
+        "__v": 0
+    },
+    "response": "Account created succesfully"
+}
+*/
+```
+
 ### deposit to your account
 
 ```js
@@ -135,3 +165,47 @@ fetch("api to be posted", {
     "response": "You have succesfully withdraw $ 2000 from your account"
 }
 ```
+
+### Transfer funds
+
+For transfering of fund you need too have the id of source of the funds(sender) and the id of
+the reciever of the funds.
+senders id: we shall get it from req.params
+reciever id: we shall get it from req.query
+note: I think there are more efficient and simple way to do this but this is how i did it but am
+also working to get a more efficient way to do it.
+
+```js
+
+fetch("api to be posted", {
+  method: "POST",
+  body: JSON.stringify({
+    balance: 2000, //amount to be sent
+  }),
+})
+  .then((res) => res.json())
+  .then((json) => console.log(json));
+
+/* response
+{
+    "recieverNewBal": {
+        "acknowledged": true,
+        "modifiedCount": 1,
+        "upsertedId": null,
+        "upsertedCount": 0,
+        "matchedCount": 1
+    },
+    "updatedBal": {
+        "acknowledged": true,
+        "modifiedCount": 1,
+        "upsertedId": null,
+        "upsertedCount": 0,
+        "matchedCount": 1
+    },
+    "response": "You have succesfully transfered $ 2000"
+}
+```
+
+### Get account balance
+
+### GEt all accounts in the bank

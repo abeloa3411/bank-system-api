@@ -7,14 +7,17 @@ export const createAcc = async (req, res) => {
     //create a new instance of account
     const newAcc = new Account({
       user: req.userId,
-      type: req.body,
+      accountType: req.body,
     });
 
     //save the account instance to db
     const isSaved = await newAcc.save();
 
     //response
-    res.status(200).json(isSaved);
+    res.status(200).json({
+      isSaved,
+      response: `Account created succesfully`,
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

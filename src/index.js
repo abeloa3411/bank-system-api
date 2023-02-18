@@ -13,7 +13,7 @@ app.use("/api/auth", auth);
 
 app.get("/", (req, res) => {
   res.json({
-    message: "🦄🌈✨👋🌎🌍🌏✨🌈🦄",
+    message: "Tests are working",
   });
 });
 
