@@ -1,16 +1,17 @@
 import request from "supertest";
 
 import app from "../../index";
+import Account from "./transactionAccModel";
 
 beforeAll(async () => {
   try {
-    await Goals.drop();
+    await Account.drop();
   } catch (error) {}
 });
 
 afterAll(async () => {
   try {
-    await Goals.drop();
+    await Account.drop();
   } catch (error) {}
 });
 
