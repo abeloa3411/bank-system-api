@@ -209,4 +209,28 @@ fetch("api to be posted", {
 
 ### Get account balance
 
+You can get the account balance by sending a get request
+
+```js
+fetch("api to be posted", {
+  method: "GET",
+})
+  .then((res) => res.json())
+  .then((json) => console.log(json));
+
+/*
+{
+    "balance": 330
+}
+  */
+```
+
 ### GEt all accounts in the bank
+
+```js
+fetch("api to be posted", {
+  method: "GET",
+})
+  .then((res) => res.json())
+  .then((json) => console.log(json));
+```

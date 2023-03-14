@@ -15,7 +15,7 @@ router.route("/").post(auth, createAcc);
 router.route("/deposit/:id").post(auth, addFunds);
 router.route("/withdraw/:id").post(auth, withdrawFunds);
 router.route("/transfer/:id").post(auth, transferFunds);
-router.route("/tr/:id").get(getBalance);
+router.route("/balance/:id").get(getBalance);
 router.route("/").get(allAccounts);
 
 export default router;

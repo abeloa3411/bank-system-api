@@ -137,7 +137,7 @@ export const getBalance = async (req, res) => {
     const remBal = await Account.find({ _id: id });
 
     //response
-    res.status(200).json({ balance: remBal.balance });
+    res.status(200).json({ balance: remBal[0].balance });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
