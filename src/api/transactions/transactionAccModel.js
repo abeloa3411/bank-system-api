@@ -10,9 +10,9 @@ const AccountSchema = new mongoose.Schema({
     type: Number,
     default: 100,
   },
-  accountType: {
-    type: { type: String },
-  },
+  category : {
+    type: String
+  }
 });
 
 const Account = mongoose.model("Account", AccountSchema);

@@ -7,7 +7,7 @@ export const createAcc = async (req, res) => {
     //create a new instance of account
     const newAcc = new Account({
       user: req.userId,
-      accountType: req.body,
+      category: req.body.category,
     });
 
     //save the account instance to db
