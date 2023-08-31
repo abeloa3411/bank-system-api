@@ -26,20 +26,20 @@ export const createAcc = async (req, res) => {
 //adding money to you account
 export const addFunds = async (req, res) => {
   //get the balance and id
-  const { balance } = req.body;
+  const { amount } = req.body;
   const { id } = req.params;
 
   try {
-    //update the account with the new balance
+    //update the account with the new amount
     const newAmnt = await Account.updateOne(
       { _id: id },
-      { $inc: { balance: parseFloat(balance) } }
+      { $inc: { balance: parseFloat(amount) } }
     );
 
     //response
     res.status(200).json({
       newAmnt,
-      response: `You have succesfully deposited $ ${balance} in your account`,
+      response: `You have succesfully deposited $ ${amount} in your account`,
     });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -49,7 +49,7 @@ export const addFunds = async (req, res) => {
 //withdraw funds from your account
 export const withdrawFunds = async (req, res) => {
   //get the balance and id
-  const { balance } = req.body;
+  const { amount } = req.body;
   const { id } = req.params;
   try {
     //update the new amount
@@ -57,13 +57,13 @@ export const withdrawFunds = async (req, res) => {
       {
         _id: id,
       },
-      { $inc: { balance: parseFloat(-balance) } }
+      { $inc: { balance: parseFloat(-amount) } }
     );
 
     //respones
     res.status(200).json({
       newAmnt,
-      response: `You have succefully withdraw $ ${balance} from you account`,
+      response: `You have succefully withdraw $ ${amount} from you account`,
     });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -72,7 +72,7 @@ export const withdrawFunds = async (req, res) => {
 
 //tranfer funds to another user's account
 export const transferFunds = async (req, res) => {
-  const { balance } = req.body; //amount to be send
+  const { amount } = req.body; //amount to be send
   const { id } = req.params; //account to send funds
   const { funds } = req.query; //account to recieve funds
   try {
@@ -80,7 +80,7 @@ export const transferFunds = async (req, res) => {
     const sender = await Account.findById(id);
 
     //deduct the balance
-    const newBal = sender.balance - balance;
+    const newBal = sender.balance - amount;
 
     //check for insuficient balance
 
@@ -100,7 +100,7 @@ export const transferFunds = async (req, res) => {
     const recieverNewBal = await Account.updateOne(
       { _id: funds },
       {
-        $inc: { balance: balance },
+        $inc: { balance: amount },
       }
     );
 
@@ -108,7 +108,7 @@ export const transferFunds = async (req, res) => {
     res.status(200).json({
       recieverNewBal,
       updatedBal,
-      response: `You have succesfully transfered $ ${balance}`,
+      response: `You have succesfully transfered $ ${amount}`,
     });
   } catch (error) {
     res.status(400).json({ error: error.message });
