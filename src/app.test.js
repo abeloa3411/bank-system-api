@@ -11,7 +11,7 @@ describe("GET /", () => {
       .expect(
         200,
         {
-          message: "Tests are working",
+          msg: "The api is running well",
         },
         done
       );
