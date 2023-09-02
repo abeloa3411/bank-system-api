@@ -12,8 +12,8 @@ app.use("/api/account", transaction);
 app.use("/api/auth", auth);
 
 app.get("/", (req, res) => {
-  res.json({
-    message: "Tests are working",
+    res.json({
+    msg: "The api is running well",
   });
 });
 

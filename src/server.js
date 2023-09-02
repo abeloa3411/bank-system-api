@@ -11,15 +11,9 @@ mongoose.set("strictQuery", true);
 
 connectDB(process.env.MONGO_URI)
   .then(() => {
-    if(process.env.NODE_ENV === "production"){
-      app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
-      app.get("*", (req, res) => {
-        res.json({
-          msg: "Page not found",
-        });
-      });
-    }else {
-      app.listen(PORT, console.log(`Server running in development mode at port ${PORT}`))
+ if (process.env.NODE_ENV === "production") {
+     app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
     }
+   
   })
   .catch((err) => console.log(err));
